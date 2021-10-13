@@ -17,8 +17,8 @@ import { ToastrModule } from 'ngx-toastr';
     SharedModule,
     NgbModule,
     ServiceModule,
-    BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot(), // ToastrModule added
+    BrowserAnimationsModule, 
+    ToastrModule.forRoot(), 
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent],

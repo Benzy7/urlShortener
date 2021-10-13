@@ -4,7 +4,14 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-dashboard',
   template: `
     <app-layout>
-      <h2 class="text-center m-4">dashboard works!</h2>
+    <div class="container">
+      <form>
+        <div class="form-group">
+          <label for="formGroupExampleInput">Saisir Url</label>
+          <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+        </div>
+      </form>
+    </div>  
     </app-layout>
   `,
   styles: [],

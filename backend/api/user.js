@@ -83,7 +83,7 @@ router.post("/login",(req,res) => {
                         }
 
                         const token = webToken.sign(userDetails, process.env.secret_key,{
-                            expiresIn:"60s"
+                            expiresIn:"300s"
                         })
 
                         res.status(200).json({
