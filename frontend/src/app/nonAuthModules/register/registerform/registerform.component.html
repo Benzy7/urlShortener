@@ -1,0 +1,24 @@
+<app-auth-layout>
+  <h3 class="card-title text-center mb-4 text-success">S'inscrire </h3>
+  <div class="card-text">
+    <form [formGroup]="registerFormModal" (ngSubmit)="handleSubmit()" class="my-4  mx-3">
+      <app-input type='text' className="form-control form-control-sm" controlName='username'
+        [controller]='registerFormModal.controls.username' [formGroup]='registerFormModal' label="Nom d'utilisateur"
+        errorMgs1="Le nom d'utilisateur est requis" errorMgs2='Saisissez un texte valide'></app-input>
+
+      <app-input type='text' className="form-control form-control-sm" controlName='email'
+        [controller]='registerFormModal.controls.email' [formGroup]='registerFormModal' label='Email'
+        errorMgs1='entrez un email' errorMgs2="mal format d'email"></app-input>
+
+      <app-input type='password' className="form-control form-control-sm" controlName='password'
+        [controller]='registerFormModal.controls.password' [formGroup]='registerFormModal' label='Password'
+        errorMgs1='Saisir un mot de passe' errorMgs2='le mot de passe doit avoir au moins 6 caractères'></app-input>
+
+      <button type="submit" class="btn  btn-block btn-primary my-4 ">S'inscrire</button>
+    </form>
+    <div class="text-center">
+      <span> Vous avez déjà un compte <a routerLink="/auth/login"> Login </a></span>
+    </div>
+  </div>
+
+</app-auth-layout>
