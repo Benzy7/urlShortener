@@ -8,6 +8,8 @@ import { ServiceModule } from './service/service.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthGuard } from './auth/auth.guard';
 import { ToastrModule } from 'ngx-toastr';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,7 +20,9 @@ import { ToastrModule } from 'ngx-toastr';
     NgbModule,
     ServiceModule,
     BrowserAnimationsModule, 
-    ToastrModule.forRoot(), 
+    ToastrModule.forRoot(),
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent],

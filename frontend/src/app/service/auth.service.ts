@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { apiUrl } from '../../environments/environment';
+import { userApiUrl } from '../../environments/environment';
 import { Request } from '../interface/request';
 import { map, catchError, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -20,7 +20,7 @@ export class AuthService {
   }
 
   logIn(data) {
-    return this.Http.post<Request>(apiUrl + 'login', data).pipe(
+    return this.Http.post<Request>(userApiUrl + 'login', data).pipe(
       tap((res) => {
         this.setLocalStorage(res);
         this.RouterS.navigate(['/dashboard']);
@@ -51,7 +51,7 @@ export class AuthService {
   }
 
   registerUser(data) {
-    return this.Http.post(apiUrl + 'inscription', data).pipe(
+    return this.Http.post(userApiUrl + 'inscription', data).pipe(
       catchError((err) => {
         const { error } = err;
 
@@ -77,7 +77,7 @@ export class AuthService {
 
   getProfile() {
     const token = localStorage.getItem('Token');
-    return this.Http.get(apiUrl + 'profile', {
+    return this.Http.get(userApiUrl + 'profile', {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,

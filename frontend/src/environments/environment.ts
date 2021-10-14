@@ -6,7 +6,7 @@ export const environment = {
   production: true,
 };
 
-export const apiUrl = 'http://localhost:3000/api/user/';
+export const userApiUrl = 'http://localhost:3000/api/user/';
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

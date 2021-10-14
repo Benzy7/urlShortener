@@ -9,7 +9,7 @@ const routes: Routes = [
     component: LoginformComponent,
   },
   {
-    path: 'register',
+    path: 'inscription',
     component: RegisterformComponent,
   }
 ];
