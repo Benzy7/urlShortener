@@ -1,0 +1,12 @@
+.wrapper{
+    height:90vh;
+}
+
+.form{
+    width:350px;
+     box-shadow:7px 5px 20px #968b8b3d;
+}
+
+.info-text{
+    font-size:12px;
+}

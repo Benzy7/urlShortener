@@ -6,8 +6,10 @@ const UrlSchema = mongoose.Schema({
         required: true
     },
     shortUrl: {
-        type: String,
-        required: true
+        type: String 
+    },
+    urlCode: {
+        type: String
     },
     nbv: {
         type: Number,

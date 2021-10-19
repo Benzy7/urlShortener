@@ -1,0 +1,26 @@
+<h2>Tableau de bord </h2>
+<p>Bienvenue sur le tableau de bord, vous pouvez ajouter une nouvelle URL ou vérifier les autres que vous avez déjà ajoutées </p>
+
+<app-add-url (onAddUrl)="addUrl($event)"></app-add-url>
+
+<table class="table table-hover">
+    <thead class="">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">URL</th>
+        <th scope="col">Nombre de visites</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+       <tr *ngFor="let url of urls; let i=index;"> 
+        <th scope="row">{{ i+1 }} </th>
+        <td>{{ url.shortUrl }}</td>
+        <td>{{ url.nbv }}</td>
+        <td>
+            <a href="#" class="btn btn-primary mr-1" role="button" aria-pressed="true">Copier</a>
+            <span></span><a href="#" class="btn btn-danger" role="button" aria-pressed="true">Supprimer</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>

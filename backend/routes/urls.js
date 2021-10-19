@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const shortid = require('shortid');
 const Url = require('../models/Url');
+require("dotenv").config()
 
 //get all
 router.get('/', async (req, res) => {
@@ -12,43 +14,44 @@ router.get('/', async (req, res) => {
     }
 });
 
-//get one 
-router.get('/:urlId', async (req, res) => {
+//redirect
+router.get('/:urlCode', async (req, res) => {
     try{
-        const url = await Url.findById(req.params.urlId)
-        res.json(url);
+        const url = await Url.findOneAndUpdate({ urlCode: req.params.urlCode }, {$inc: {nbv: 1}})
+        if (url) {
+            return res.redirect(url.mainUrl);
+        } else {
+            return res.status(404).json('Pas de url trouvée')
+        }
     }catch(err){
+        console.log(err);
         res.json({ message: err });
     }
 });
 
 
 //nv url
-router.post('/', async (req, res) => {
-    let shortURL = (Math.random() + 1).toString(36).substring(7);
+router.post('/shorten', (req, res) => {
+    const {mainUrl} =  req.body;
+    const baseUrl = process.env.baseUrl;
+    const nbv =  0;
 
-    //console.log(shortURL)
+    //to do (validate and...)
+    const urlCode = shortid.generate();
 
-    const url = new Url({
-        mainUrl: req.body.mainUrl,
-        shortUrl: shortURL,
-        nbv: 0
+    //todo more stuff...
+    let url;
+
+    const shortUrl = baseUrl + '/url/' + urlCode;
+    url = new Url({
+        mainUrl,
+        shortUrl,
+        nbv,
+        urlCode
     });
-    try{
-        const savedUrl = await url.save();
-    }catch(err){
-        res.json({message: err});
-    }
-});
+    url.save();
 
-//update
-router.patch('/:urlId', async (req, res) => {
-    try{
-        const majUrl = await Url.updateOne({ _id: req.params.urlId }, {$inc: {nbv: 1}} );
-        res.json(majUrl);
-    }catch(err){
-        res.json({ message: err });
-    }
+    res.json('all good')
 });
 
 //delete

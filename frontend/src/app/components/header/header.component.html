@@ -1,0 +1,27 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" routerLink='/'>URL Raccourcisseur</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbart">
+        <ul class="nav navbar-nav navbar-left">
+            <li  *ngIf='logged' class="nav-item">
+              <a routerLinkActive="active" class="nav-link" routerLink='/dashboard'>Url List</a>
+            </li>
+            <li *ngIf='logged' class="nav-item">
+              <a routerLinkActive="active" class="nav-link" routerLink='/profile'>Profile</a>
+            </li>
+        </ul>
+      <ul class="nav navbar-nav navbar-right ml-auto">
+        <li *ngIf='notLogged' class="nav-item">
+          <a routerLinkActive="active" class="nav-link" routerLink='/inscription'>S'inscrire</a>
+        </li>
+        <li *ngIf='notLogged' class="nav-item">
+          <a routerLinkActive="active" class="nav-link"  routerLink='/login'>Se connecter</a>
+        </li>
+        <li *ngIf='logged' class="nav-item">
+          <a class="nav-link" href="#" (click)="onLogoutClick()">Déconnecter</a>
+        </li>
+      </ul>
+    </div>
+</nav>

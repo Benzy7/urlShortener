@@ -11,6 +11,7 @@ router.post("/inscription", (req,res)=>{
 
     if (username == undefined || username == "" || password == undefined || password == "" || email == undefined || email == "") {
         res.status(401).json({
+            sucess: false,
             message: "remplissez tous les champs s'il vous plait",
             status:res.statusCode
         })
@@ -25,20 +26,21 @@ router.post("/inscription", (req,res)=>{
                             email: email,
                             password: hash
                         }).then((value)=>{
-                            res.status(201).json({
+                            res.json({
+                                success: true,
                                 message:"votre compte a été créé avec succès",
-                                status:res.statusCode
                             })
                         }).catch(err=> res.status(404).json({
-                            message:"Quelque chose s'est mal passé essaie encore"
+                            success: false,
+                            message:"Quelque chose s'est mal passé essaie encore",
                         }))
                     })
                 })
                 
             } else {
-                res.status(401).json({
+                res.json({
+                    success: false,
                     message:"Email existe déjà",
-                    status:res.statusCode
                 })
             }
         })
@@ -50,9 +52,8 @@ router.post("/login",(req,res) => {
     const {password, email} = req.body;
 
     if (email == undefined || email == "" || password == undefined || password == "") {
-        res.status(401).json({
+        res.json({
             message: "remplissez tous les champs s'il vous plait",
-            status:res.statusCode
         })
     } else {
         var myUser = User.findOne({email: email}).exec();
@@ -60,9 +61,9 @@ router.post("/login",(req,res) => {
         myUser.then(function (Suser) {
             //console.log(Suser)
             if (Suser === null) {
-                res.status(401).json({
+                res.json({
+                    succsess: false,
                     message:"Email est pas enregistré veuillez vous inscrire.",
-                    status:res.statusCode,
                     token:""
                 })
             } else {
@@ -71,7 +72,7 @@ router.post("/login",(req,res) => {
                 var userId = Suser._id;
                 
                 const userPassword = userPwd;
-                console.log('userPassword');
+                //console.log('userPassword');
                 bcrypt.compare(password, userPassword, function(err, result){
                     if (result) {
                         const userDetails = {
@@ -83,15 +84,16 @@ router.post("/login",(req,res) => {
                             expiresIn:"3600s"
                         })
 
-                        res.status(200).json({
+                        res.json({
+                            succsess: true,
                             message:"Connecté avec succès",
-                            status:res.statusCode,
+                            user: Suser,
                             token
                         })
                     } else {
-                        res.status(401).json({
+                        res.json({
+                            succsess: false,
                             message:"l'email ou le mot de passe entré est incorrect",
-                            status:res.statusCode,
                             token:""
                         })
                     }
@@ -111,24 +113,28 @@ router.patch('/:id', async (req, res) => {
     }
 });
 
+// Profile
+//router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res, next) => {
+//    res.json({user: req.user});
+//});
+
 //user profile api
 router.get("/profile", (req, res)=>{
     const authHeader = req.headers["authorization"];
-
+    console.log(authHeader)
     if (authHeader) {
         const token = authHeader.substr("Bearer".length + 1);
         webToken.verify(token, process.env.secret_key, (err, user) => {
             if (user) {
-                return res.status(200).json({
-                    status:res.statusCode,
-                    data: user,
+                return res.json({
+                    user: user,
                     message:"Succès"
                 });
             } else {
-                res.status(401).json({
+                res.json({
                     message:"veuillez vous connecter",
-                    status:res.statusCode
                 })
+                console.log(err);
             }
         });
     } else {

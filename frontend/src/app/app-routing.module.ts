@@ -1,24 +1,10 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from './auth/auth.guard';
+import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [
-  {
-    path: 'auth',
-    loadChildren: () =>
-      import('./nonAuthModules/authentication.module').then(
-        (m) => m.AuthenticationModule
-      ),
-  },
-  {
-    path: 'dashboard',
-    loadChildren: () => import('./auth/Auth.module').then((m) => m.AuthModule),
-    canActivate: [AuthGuard],
-  },
-];
+const routes: Routes = [];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
